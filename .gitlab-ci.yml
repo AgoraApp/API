@@ -1,0 +1,22 @@
+image: node:latest
+
+stages:
+  - deploy
+
+before_script:
+  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+  - eval $(ssh-agent -s)
+  - mkdir -p ~/.ssh
+  - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+
+deployment_to_staging:
+  stage: deploy
+  script:
+    - ssh-add <(echo "$SSH_PRIVATE_KEY_STAGING")
+    - ssh deploy@api.agora.bramvanosta.com /var/www/agora/api/scripts/installStaging.sh
+  only:
+    - master
+  when: manual
+  environment:
+    name: staging
+    url: https://api.agora.bramvanosta.com

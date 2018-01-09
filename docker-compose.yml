@@ -1,0 +1,35 @@
+version: '2'
+
+services:
+  nginx:
+    container_name: agora_nginx
+    image: nginx:latest
+    ports:
+      - 80:80
+    volumes_from:
+      - web
+    volumes:
+      - ./config/nginx:/etc/nginx/conf.d
+      - ./logs:/var/www/logs/laravel
+    depends_on:
+      - web
+
+  web:
+    container_name: agora_web
+    build: .
+    working_dir: /var/www/laravel
+    volumes:
+      - ./src:/var/www/laravel
+    depends_on:
+      - db
+
+  db:
+    container_name: agora_db
+    image: mariadb:latest
+    environment:
+      - "MYSQL_DATABASE=agora_api"
+      - "MYSQL_USER=agora"
+      - "MYSQL_PASSWORD=password"
+      - "MYSQL_ROOT_PASSWORD=password"
+    ports: 
+      - "3306:3306"

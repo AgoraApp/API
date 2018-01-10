@@ -20,6 +20,11 @@ class CreateSessionTable extends Migration
             $table->dateTime('end_at');
             $table->dateTime('ended_at')->nullable();
 
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')
+                ->references('id')->on('users')
+                ->onDelete('cascade');
+
             $table->integer('place_id')->unsigned();
             $table->foreign('place_id')
                 ->references('id')->on('places')

@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Hash;
 use Illuminate\Notifications\Notifiable;
@@ -58,5 +58,21 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    /**
+     * Get the skills for the user.
+     */
+    public function skills()
+    {
+        return $this->hasMany('App\Skill');
+    }
+
+    /**
+     * Get the sessions for the user.
+     */
+    public function sessions()
+    {
+        return $this->hasMany('App\Session');
     }
 }

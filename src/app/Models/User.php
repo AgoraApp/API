@@ -65,7 +65,7 @@ class User extends Authenticatable implements JWTSubject
      */
     public function skills()
     {
-        return $this->hasMany('App\Skill');
+        return $this->hasMany('App\Models\Skill');
     }
 
     /**
@@ -73,6 +73,6 @@ class User extends Authenticatable implements JWTSubject
      */
     public function sessions()
     {
-        return $this->hasMany('App\Session');
+        return $this->hasMany('App\Models\Session');
     }
 }

@@ -25,7 +25,7 @@ class Session
      */
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\Models\User');
     }
 
     /**
@@ -33,7 +33,7 @@ class Session
      */
     public function place()
     {
-        return $this->belongsTo('App\Place');
+        return $this->belongsTo('App\Models\Place');
     }
 
     /**
@@ -41,6 +41,6 @@ class Session
      */
     public function zone()
     {
-        return $this->belongsTo('App\Zone');
+        return $this->belongsTo('App\Models\Zone');
     }
 }

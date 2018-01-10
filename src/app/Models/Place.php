@@ -25,7 +25,7 @@ class Place
      */
     public function sessions()
     {
-        return $this->hasMany('App\Session');
+        return $this->hasMany('App\Models\Session');
     }
 
     /**
@@ -33,6 +33,6 @@ class Place
      */
     public function zones()
     {
-        return $this->hasMany('App\Zone');
+        return $this->hasMany('App\Models\Zone');
     }
 }

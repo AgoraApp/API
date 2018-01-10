@@ -25,7 +25,7 @@ class Zone
      */
     public function place()
     {
-        return $this->belongsTo('App\Place');
+        return $this->belongsTo('App\Models\Place');
     }
 
     /**
@@ -33,6 +33,6 @@ class Zone
      */
     public function sessions()
     {
-        return $this->hasMany('App\Session');
+        return $this->hasMany('App\Models\Session');
     }
 }

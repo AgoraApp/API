@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
-class Skill
+use Illuminate\Database\Eloquent\Model;
+
+class Skill extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -25,6 +27,6 @@ class Skill
      */
     public function users()
     {
-        return $this->hasMany('App\Models\User');
+        return $this->belongsToMany('App\Models\User', 'user_skill');
     }
 }

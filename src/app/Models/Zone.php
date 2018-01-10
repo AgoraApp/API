@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
-class Zone
+use Illuminate\Database\Eloquent\Model;
+
+class Zone extends Model
 {
     /**
      * The attributes that are mass assignable.

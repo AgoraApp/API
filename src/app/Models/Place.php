@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
-class Place
+use Illuminate\Database\Eloquent\Model;
+
+class Place extends Model
 {
     /**
      * The attributes that are mass assignable.

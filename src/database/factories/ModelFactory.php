@@ -22,3 +22,27 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+$factory->define(App\Models\Place::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->name,
+        'address' => $faker->streetAddress,
+        'zip_code' => $faker->postcode,
+        'city' => $faker->city,
+        'country' => $faker->country,
+        'latitude' => $faker->latitude,
+        'longitude' => $faker->longitude,
+    ];
+});
+
+$factory->define(App\Models\Zone::class, function (Faker\Generator $faker) {
+    return [
+        'name' => "zone-$faker->randomLetter",
+    ];
+});
+
+$factory->define(App\Models\Skill::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->jobTitle,
+    ];
+});

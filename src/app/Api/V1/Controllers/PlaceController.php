@@ -22,6 +22,19 @@ class PlaceController extends Controller
     }
 
     /**
+     * Get Place
+     *
+     * @param Number id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function get($id)
+    {
+        $place = Place::with('zones')->find($id);
+
+        return response()->json($place);
+    }
+
+    /**
      * Get Places by location
      * 
      * @param  Request $request

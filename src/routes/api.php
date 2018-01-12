@@ -16,8 +16,6 @@ $api->version('v1', function (Router $api) {
         $api->post('logout', 'App\\Api\\V1\\Controllers\\Auth\\LogoutController@logout');
         
         $api->get('verify', 'App\\Api\\V1\\Controllers\\Auth\\VerifyController@verify');
-        
-        $api->get('me', 'App\\Api\\V1\\Controllers\\UserController@me');
     });
 
     $api->group(['middleware' => 'jwt.auth'], function(Router $api) {
@@ -49,6 +47,13 @@ $api->version('v1', function (Router $api) {
     
         $api->group(['prefix' => 'users'], function (Router $api) {
             $api->get('/find-by-skill/{id}', 'App\\Api\\V1\\Controllers\\UserController@findBySkill');
+            $api->get('/ad-skill/{name}', 'App\\Api\\V1\\Controllers\\UserController@addSkill');
+        });
+
+        $api->group(['prefix' => 'me'], function (Router $api) {
+            $api->get('/', 'App\\Api\\V1\\Controllers\\UserController@me');
+            $api->post('/add-skill/{name}', 'App\\Api\\V1\\Controllers\\UserController@addSkill');
+            $api->post('/remove-skill/{id}', 'App\\Api\\V1\\Controllers\\UserController@removeSkill');
         });
     });
 });

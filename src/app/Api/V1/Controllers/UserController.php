@@ -44,4 +44,35 @@ class UserController extends Controller
 
         return response()->json($users);
     }
+
+    /**
+     * Add Skill to User
+     * 
+     * @param String $name
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function addSkill($name)
+    {
+        $user = Auth::guard()->user();
+
+        $skill = Skill::firstOrCreate(['name' => $name]);
+        $user->skills()->syncWithoutDetaching([$skill->id]);
+
+        return response()->json(['status' => 'ok']);
+    }
+
+    /**
+     * Remove Skill from User
+     * 
+     * @param Integer $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function removeSkill($id)
+    {
+        $user = Auth::guard()->user();
+
+        $user->skills()->detach($id);
+
+        return response()->json(['status' => 'ok']);
+    }
 }

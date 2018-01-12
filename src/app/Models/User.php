@@ -30,6 +30,15 @@ class User extends Authenticatable implements JWTSubject
     ];
 
     /**
+     * The attributes that should be added to arrays.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'skills'
+    ];
+
+    /**
      * Automatically creates hash for the user password.
      *
      * @param  string  $value
@@ -61,11 +70,21 @@ class User extends Authenticatable implements JWTSubject
     }
 
     /**
+     * Automatically creates hash for the user password.
+     *
+     * @param  string  $value
+     */
+    public function getSkillsAttribute()
+    {
+        $this->load('skills');
+    }
+
+    /**
      * Get the skills for the user.
      */
     public function skills()
     {
-        return $this->belongsToMany('App\Models\Skill', 'user_skill')->select(['id', 'name']);
+        return $this->belongsToMany('App\Models\Skill', 'user_skill');
     }
 
     /**

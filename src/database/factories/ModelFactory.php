@@ -14,9 +14,11 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
     static $password;
+    
+    $faker->addProvider(new Faker\Provider\fr_FR\Person($faker));
 
     return [
-        'name' => $faker->name,
+        'name' => $faker->firstName,
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
         'remember_token' => str_random(10),
@@ -24,10 +26,12 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
 });
 
 $factory->define(App\Models\Place::class, function (Faker\Generator $faker) {
+    $faker->addProvider(new Faker\Provider\fr_FR\Address($faker));
+    $faker->addProvider(new Faker\Provider\fr_FR\Company($faker));
     $location = getLocation();
 
     return [
-        'name' => $faker->name,
+        'name' => $faker->company,
         'address' => $faker->streetAddress,
         'zip_code' => $faker->postcode,
         'city' => $faker->city,
@@ -44,6 +48,8 @@ $factory->define(App\Models\Zone::class, function (Faker\Generator $faker) {
 });
 
 $factory->define(App\Models\Skill::class, function (Faker\Generator $faker) {
+    $faker->addProvider(new Faker\Provider\fr_FR\Company($faker));
+
     return [
         'name' => $faker->jobTitle,
     ];

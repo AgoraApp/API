@@ -26,7 +26,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'created_at', 'updated_at'
     ];
 
     /**
@@ -65,7 +65,7 @@ class User extends Authenticatable implements JWTSubject
      */
     public function skills()
     {
-        return $this->belongsToMany('App\Models\Skill', 'user_skill');
+        return $this->belongsToMany('App\Models\Skill', 'user_skill')->select(['id', 'name']);
     }
 
     /**

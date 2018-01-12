@@ -20,7 +20,9 @@ class Skill extends Model
      *
      * @var array
      */
-    protected $hidden = [];
+    protected $hidden = [
+        'pivot'
+    ];
 
     /**
      * Get the users for the skill.

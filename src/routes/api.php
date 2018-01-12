@@ -14,7 +14,8 @@ $api->version('v1', function (Router $api) {
         $api->post('reset', 'App\\Api\\V1\\Controllers\\Auth\\ResetPasswordController@resetPassword');
 
         $api->post('logout', 'App\\Api\\V1\\Controllers\\Auth\\LogoutController@logout');
-        $api->post('refresh', 'App\\Api\\V1\\Controllers\\Auth\\RefreshController@refresh');
+        
+        $api->get('verify', 'App\\Api\\V1\\Controllers\\Auth\\VerifyController@verify');
         
         $api->get('me', 'App\\Api\\V1\\Controllers\\UserController@me');
     });
@@ -34,16 +35,20 @@ $api->version('v1', function (Router $api) {
                 ]);
             }
         ]);
-    });
 
-    $api->group(['prefix' => 'places'], function (Router $api) {
-        $api->get('/', 'App\\Api\\V1\\Controllers\\PlaceController@index');
-        $api->get('/nearby', 'App\\Api\\V1\\Controllers\\PlaceController@nearBy');
-        $api->get('/{id}', 'App\\Api\\V1\\Controllers\\PlaceController@get');
-    });
-
-    $api->group(['prefix' => 'skills'], function (Router $api) {
-        $api->get('/', 'App\\Api\\V1\\Controllers\\SkillController@index');
-        $api->get('/find/{value}', 'App\\Api\\V1\\Controllers\\SkillController@find');
+        $api->group(['prefix' => 'places'], function (Router $api) {
+            $api->get('/', 'App\\Api\\V1\\Controllers\\PlaceController@index');
+            $api->get('/nearby', 'App\\Api\\V1\\Controllers\\PlaceController@nearBy');
+            $api->get('/{id}', 'App\\Api\\V1\\Controllers\\PlaceController@get');
+        });
+    
+        $api->group(['prefix' => 'skills'], function (Router $api) {
+            $api->get('/', 'App\\Api\\V1\\Controllers\\SkillController@index');
+            $api->get('/find/{value}', 'App\\Api\\V1\\Controllers\\SkillController@find');
+        });
+    
+        $api->group(['prefix' => 'users'], function (Router $api) {
+            $api->get('/find-by-skill/{id}', 'App\\Api\\V1\\Controllers\\UserController@findBySkill');
+        });
     });
 });

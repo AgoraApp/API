@@ -3,11 +3,12 @@
 namespace App\Api\V1\Controllers;
 
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Tymon\JWTAuth\JWTAuth;
+use Tymon\JWTAuth\Exceptions\JWTException;
 use App\Http\Controllers\Controller;
 use App\Api\V1\Requests\LoginRequest;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use App\Models\Skill;
 use Auth;
 
 class UserController extends Controller
@@ -29,10 +30,18 @@ class UserController extends Controller
      */
     public function me()
     {
-        $user = Auth::guard()->user();
+        return response()->json(Auth::guard()->user());
+    }
 
-        $user['skills'] = $user->skills;
+    /**
+     * Find Users by Skill
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function findBySkill($skillId)
+    {
+        $users = Skill::find($skillId)->users;
 
-        return response()->json($user);
+        return response()->json($users);
     }
 }

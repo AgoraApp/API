@@ -21,7 +21,7 @@ class Skill extends Model
      * @var array
      */
     protected $hidden = [
-        'pivot'
+        'pivot', 'created_at', 'updated_at'
     ];
 
     /**

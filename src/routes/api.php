@@ -37,6 +37,12 @@ $api->version('v1', function (Router $api) {
 
     $api->group(['prefix' => 'places'], function (Router $api) {
         $api->get('/', 'App\\Api\\V1\\Controllers\\PlaceController@index');
+        $api->get('/{id}', 'App\\Api\\V1\\Controllers\\PlaceController@get');
         $api->get('/nearby', 'App\\Api\\V1\\Controllers\\PlaceController@nearBy');
+    });
+
+    $api->group(['prefix' => 'skills'], function (Router $api) {
+        $api->get('/', 'App\\Api\\V1\\Controllers\\SkillController@index');
+        $api->get('/find/{value}', 'App\\Api\\V1\\Controllers\\SkillController@find');
     });
 });

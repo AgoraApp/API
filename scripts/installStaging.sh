@@ -13,7 +13,7 @@ git reset origin/master --hard
 
 # Go to the laravel installation folder
 echo "### Going to the laravel installation folder ###"
-cd laravel
+cd src
 
 # Install Back-end dependencies for laravel
 echo "### Installing Back-end dependencies for laravel ###"

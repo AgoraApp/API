@@ -16,7 +16,6 @@ deployment_to_staging:
     - ssh deploy@api.agora.bramvanosta.com /var/www/agora/api/scripts/installStaging.sh
   only:
     - master
-  when: manual
   environment:
     name: staging
     url: https://api.agora.bramvanosta.com

@@ -21,8 +21,8 @@ class CreatePlaceTable extends Migration
             $table->string('zip_code');
             $table->string('city');
             $table->string('country');
-            $table->decimal('latitude');
-            $table->decimal('longitude');
+            $table->float('latitude', 10, 6);
+            $table->float('longitude', 10, 6);
 
             $table->timestamps();
         });

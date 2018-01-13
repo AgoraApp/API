@@ -36,8 +36,8 @@ class LoginController extends Controller
 
         return response()
             ->json([
-                'status' => 'ok',
-                'token' => $token
+                'token' => $token,
+                'user' => Auth::guard()->user()
             ]);
     }
 }

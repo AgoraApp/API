@@ -11,6 +11,8 @@ class SkillsTableSeeder extends Seeder
      */
     public function run()
     {
+        App\Models\Skill::truncate();
+
         factory(App\Models\Skill::class, 250)->create();
     }
 }

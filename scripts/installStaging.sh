@@ -22,3 +22,7 @@ composer install
 # migrating laravel database
 echo "### Migrating laravel database ###"
 php artisan migrate
+
+# seeding laravel database
+echo "### Seeding laravel database ###"
+php artisan db:seed

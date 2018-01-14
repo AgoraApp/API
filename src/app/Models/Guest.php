@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Session extends Model
+class Guest extends Model
 {
     use SoftDeletes;
 
@@ -15,7 +15,7 @@ class Session extends Model
      * @var array
      */
     protected $fillable = [
-        'started_at', 'end_at'
+        'name', 'image'
     ];
 
     /**
@@ -28,26 +28,18 @@ class Session extends Model
     ];
 
     /**
-     * Get the user for the session.
+     * Get the skills for the guest.
      */
-    public function user()
+    public function skills()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsToMany('App\Models\Skill', 'guest_skill');
     }
 
     /**
-     * Get the place for the session.
+     * Get the sessions for the guest.
      */
-    public function place()
+    public function sessions()
     {
-        return $this->belongsTo('App\Models\Place');
-    }
-
-    /**
-     * Get the zone for the session.
-     */
-    public function zone()
-    {
-        return $this->belongsTo('App\Models\Zone');
+        return $this->hasMany('App\Models\Session');
     }
 }

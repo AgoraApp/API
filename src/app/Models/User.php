@@ -17,7 +17,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'first_name', 'last_name', 'email', 'password', 'avatar', 'expertise'
     ];
 
     /**
@@ -93,5 +93,13 @@ class User extends Authenticatable implements JWTSubject
     public function sessions()
     {
         return $this->hasMany('App\Models\Session');
+    }
+
+    /**
+     * Get the notifications for the user.
+     */
+    public function notifications()
+    {
+        return $this->hasMany('App\Models\Notification');
     }
 }

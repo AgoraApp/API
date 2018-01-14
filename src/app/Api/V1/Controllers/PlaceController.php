@@ -49,7 +49,7 @@ class PlaceController extends Controller
         $latitude = $request->input('latitude');
         $longitude = $request->input('longitude');
 
-        $places = Place::getByDistance($latitude, $longitude, 20);
+        $places = Place::getByDistance($latitude, $longitude, 5);
 
         return response()->json($places);
     }

@@ -16,19 +16,23 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
     static $password;
     
     $faker->addProvider(new Faker\Provider\fr_FR\Person($faker));
+    $faker->addProvider(new Faker\Provider\fr_FR\Company($faker));
 
     return [
-        'name' => $faker->firstName,
+        'first_name' => $faker->firstName,
+        'last_name' => $faker->lastName,
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
         'remember_token' => str_random(10),
+        'avatar' => $faker->imageUrl(500, 500, 'animals'),
+        'expertise' => $faker->jobTitle,
     ];
 });
 
 $factory->define(App\Models\Place::class, function (Faker\Generator $faker) {
     $faker->addProvider(new Faker\Provider\fr_FR\Address($faker));
     $faker->addProvider(new Faker\Provider\fr_FR\Company($faker));
-    $location = getLocation();
+    $location = generateRandomLocation();
 
     return [
         'name' => $faker->company,
@@ -55,15 +59,21 @@ $factory->define(App\Models\Skill::class, function (Faker\Generator $faker) {
     ];
 });
 
-
-// Helper functions
-function getLocation() {
+function generateRandomLocation() {
     $longitude = (float) -0.556826;
     $latitude = (float) 44.825917;
-    $radius = rand(1, 100); // in miles
-
-    $latitude = $latitude + ($radius / 69);
-    $longitude = $longitude + $radius / abs(cos(deg2rad($latitude)) * 69);
-
-    return array('latitude' => $latitude, 'longitude' => $longitude);
-}
+    
+    $rd = 25000 / 111300;
+  
+    $u = (float) rand() / (float) getrandmax();
+    $v = (float) rand() / (float) getrandmax();
+  
+    $w = $rd * sqrt($u);
+    $t = 2 * pi() * $v;
+    $x = $w * cos($t);
+    $y = $w * sin($t);
+  
+    $xp = $x / cos($latitude);
+  
+    return array('latitude' => $y + $latitude, 'longitude' => $xp + $longitude);
+  }

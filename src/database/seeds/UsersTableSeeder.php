@@ -22,7 +22,7 @@ class UsersTableSeeder extends Seeder
             'last_name' => 'van Osta',
             'email' => 'bramvanosta@gmail.com',
             'password' => 'password',
-            'avatar' => 'http://lorempixel.com/500/500/animals/1/',
+            'avatar' => 'http://pngimg.com/uploads/man/man_PNG6534.png',
             'expertise' => 'React developer'
         ]);
 

@@ -25,7 +25,5 @@ class UsersTableSeeder extends Seeder
             'avatar' => 'http://pngimg.com/uploads/man/man_PNG6534.png',
             'expertise' => 'React developer'
         ]);
-
-        $user->skills()->saveMany(App\Models\Skill::all()->random(rand(5, 25)));
     }
 }

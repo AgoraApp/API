@@ -58,7 +58,7 @@ class UserController extends Controller
         $skill = Skill::firstOrCreate(['name' => $name]);
         $user->skills()->syncWithoutDetaching([$skill->id]);
 
-        return response()->json(['status' => 'ok']);
+        return response()->json(['status' => 'ok', 'user' => $user]);
     }
 
     /**
@@ -73,6 +73,6 @@ class UserController extends Controller
 
         $user->skills()->detach($id);
 
-        return response()->json(['status' => 'ok']);
+        return response()->json(['status' => 'ok', 'user' => $user]);
     }
 }

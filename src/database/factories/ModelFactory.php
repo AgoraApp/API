@@ -40,6 +40,7 @@ $factory->define(App\Models\Place::class, function (Faker\Generator $faker) {
         'zip_code' => $faker->postcode,
         'city' => $faker->city,
         'country' => $faker->country,
+        'image' => $faker->imageUrl(500, 500, 'sports'),
         'latitude' => $location['latitude'],
         'longitude' => $location['longitude'],
     ];

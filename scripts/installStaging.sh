@@ -26,3 +26,7 @@ php artisan migrate
 # seeding laravel database
 echo "### Seeding laravel database ###"
 php artisan db:seed
+
+# clear laravel cache
+echo "### Clearing laravel cavhe ###"
+php artisan cache:clear

@@ -43,9 +43,15 @@ class UserController extends Controller
     public function update(Request $request)
     {
         $fields = $request->only(['first_name', 'last_name', 'expertise', 'avatar']);
-
+        
         $user = Auth::guard()->user();
         $user->fill($fields);
+
+        if ($request->hasFile('avatar')) {
+            $avatar = $request->file('avatar')->store($user->id, 'avatars');
+            $user->avatar = "storage/avatars/$avatar";
+        }
+
         $user->save();
 
         return response()->json($user);

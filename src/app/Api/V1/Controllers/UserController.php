@@ -42,7 +42,7 @@ class UserController extends Controller
      */
     public function update(Request $request)
     {
-        $fields = $request->only(['first_name', 'last_name', 'expertise', 'avatar']);
+        $fields = $request->only(['first_name', 'last_name', 'expertise']);
         
         $user = Auth::guard()->user();
         $user->fill($fields);

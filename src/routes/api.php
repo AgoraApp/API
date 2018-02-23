@@ -53,8 +53,8 @@ $api->version('v1', function (Router $api) {
         $api->group(['prefix' => 'me'], function (Router $api) {
             $api->get('/', 'App\\Api\\V1\\Controllers\\UserController@me');
             $api->post('/update', 'App\\Api\\V1\\Controllers\\UserController@update');
-            $api->post('/add-skill/{name}', 'App\\Api\\V1\\Controllers\\UserController@addSkill');
-            $api->post('/remove-skill/{id}', 'App\\Api\\V1\\Controllers\\UserController@removeSkill');
+            $api->post('/skills/{name}', 'App\\Api\\V1\\Controllers\\UserController@addSkill');
+            $api->delete('/skills/{id}', 'App\\Api\\V1\\Controllers\\UserController@removeSkill');
         });
     });
 });

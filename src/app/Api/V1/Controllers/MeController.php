@@ -10,6 +10,8 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 use App\Http\Controllers\Controller;
 use App\Api\V1\Requests\LoginRequest;
 use App\Models\Skill;
+use App\Models\Place;
+use App\Models\UserPlaceFavourite;
 use Auth;
 
 class MeController extends Controller
@@ -116,5 +118,43 @@ class MeController extends Controller
         $user->skills()->detach($id);
 
         return response()->json(['status' => 'ok', 'user' => $user]);
+    }
+
+    /**
+     * Get favourite places
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getFavouritePlaces()
+    {
+        $user = Auth::guard()->user();
+
+        return response()->json($user->favouritePlaces);
+    }
+
+    /**
+     * Add favourite place
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function addFavouritePlace($id)
+    {
+        $user = Auth::guard()->user();
+        $user->favouritePlaces()->syncWithoutDetaching([$id]);
+
+        return response()->json($user->favouritePlaces);
+    }
+
+    /**
+     * Remove favourite place
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function removeFavouritePlace($id)
+    {
+        $user = Auth::guard()->user();
+        $user->favouritePlaces()->detach($id);
+
+        return response()->json($user->favouritePlaces);
     }
 }

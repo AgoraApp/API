@@ -61,6 +61,9 @@ $api->version('v1', function (Router $api) {
             $api->post('/sessions', 'App\\Api\\V1\\Controllers\\MeController@createSession');
             $api->post('/skills/{name}', 'App\\Api\\V1\\Controllers\\MeController@addSkill');
             $api->delete('/skills/{id}', 'App\\Api\\V1\\Controllers\\MeController@removeSkill');
+            $api->get('/places/favourite', 'App\\Api\\V1\\Controllers\\MeController@getFavouritePlaces');
+            $api->post('/places/favourite/{id}', 'App\\Api\\V1\\Controllers\\MeController@addFavouritePlace');
+            $api->delete('/places/favourite/{id}', 'App\\Api\\V1\\Controllers\\MeController@removeFavouritePlace');
         });
     });
 });

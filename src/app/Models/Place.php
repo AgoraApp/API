@@ -41,6 +41,14 @@ class Place extends Model
         return $this->hasMany('App\Models\Zone');
     }
 
+    /**
+     * Get users who favourited the place
+     */
+    public function favouritedUsers()
+    {
+        return $this->belongsToMany('App\Models\User', 'user_place_favourites');
+    }
+
     public static function getByDistance($lat, $lng, $distance)
     {
         $results = DB::select(DB::raw('

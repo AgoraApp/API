@@ -36,25 +36,31 @@ $api->version('v1', function (Router $api) {
 
         $api->group(['prefix' => 'places'], function (Router $api) {
             $api->get('/', 'App\\Api\\V1\\Controllers\\PlaceController@index');
-            $api->get('/nearby', 'App\\Api\\V1\\Controllers\\PlaceController@nearBy');
             $api->get('/{id}', 'App\\Api\\V1\\Controllers\\PlaceController@get');
+            $api->get('/find/nearby', 'App\\Api\\V1\\Controllers\\PlaceController@findNearBy');
         });
     
         $api->group(['prefix' => 'skills'], function (Router $api) {
             $api->get('/', 'App\\Api\\V1\\Controllers\\SkillController@index');
             $api->get('/find/{value}', 'App\\Api\\V1\\Controllers\\SkillController@find');
         });
+
+        $api->group(['prefix' => 'sessions'], function (Router $api) {
+            $api->get('/find/place/{id}', 'App\\Api\\V1\\Controllers\\SessionController@findByPlace');
+            $api->get('/find/user', 'App\\Api\\V1\\Controllers\\SessionController@findByUser');
+        });
     
         $api->group(['prefix' => 'users'], function (Router $api) {
-            $api->get('/find-by-skill/{id}', 'App\\Api\\V1\\Controllers\\UserController@findBySkill');
-            $api->get('/ad-skill/{name}', 'App\\Api\\V1\\Controllers\\UserController@addSkill');
+            $api->get('/find/skill/{id}', 'App\\Api\\V1\\Controllers\\UserController@findBySkill');
         });
 
         $api->group(['prefix' => 'me'], function (Router $api) {
-            $api->get('/', 'App\\Api\\V1\\Controllers\\UserController@me');
-            $api->post('/update', 'App\\Api\\V1\\Controllers\\UserController@update');
-            $api->post('/skills/{name}', 'App\\Api\\V1\\Controllers\\UserController@addSkill');
-            $api->delete('/skills/{id}', 'App\\Api\\V1\\Controllers\\UserController@removeSkill');
+            $api->get('/', 'App\\Api\\V1\\Controllers\\MeController@index');
+            $api->post('/update', 'App\\Api\\V1\\Controllers\\MeController@update');
+            $api->get('/sessions', 'App\\Api\\V1\\Controllers\\MeController@getSessions');
+            $api->post('/sessions', 'App\\Api\\V1\\Controllers\\MeController@createSession');
+            $api->post('/skills/{name}', 'App\\Api\\V1\\Controllers\\MeController@addSkill');
+            $api->delete('/skills/{id}', 'App\\Api\\V1\\Controllers\\MeController@removeSkill');
         });
     });
 });

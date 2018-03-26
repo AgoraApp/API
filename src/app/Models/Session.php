@@ -15,7 +15,7 @@ class Session extends Model
      * @var array
      */
     protected $fillable = [
-        'started_at', 'end_at'
+        'started_at', 'end_at', 'place_id', 'zone_id',
     ];
 
     /**
@@ -33,6 +33,14 @@ class Session extends Model
     public function user()
     {
         return $this->belongsTo('App\Models\User');
+    }
+
+    /**
+     * Get the guest for the session.
+     */
+    public function guest()
+    {
+        return $this->belongsTo('App\Models\Guest');
     }
 
     /**

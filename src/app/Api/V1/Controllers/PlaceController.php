@@ -40,7 +40,7 @@ class PlaceController extends Controller
      * @param  Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function nearBy(Request $request)
+    public function findNearBy(Request $request)
     {
         if (!$request->has('latitude') || !$request->has('longitude')) {
             return response()->json(['error' => 'Latitude or Longitude not provided'], 400);

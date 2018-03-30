@@ -33,7 +33,10 @@ class MeController extends Controller
      */
     public function index()
     {
-        return response()->json(Auth::guard()->user());
+        $user = Auth::guard()->user();
+        $user['favourite_places'] = $user->favouritePlaces()->pluck('id')->toArray();
+
+        return response()->json($user);
     }
 
     /**

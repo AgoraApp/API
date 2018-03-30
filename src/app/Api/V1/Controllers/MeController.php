@@ -145,7 +145,9 @@ class MeController extends Controller
         $user = Auth::guard()->user();
         $user->favouritePlaces()->syncWithoutDetaching([$id]);
 
-        return response()->json($user->favouritePlaces);
+        $favouritePlaces = $user->favouritePlaces()->pluck('id')->toArray();
+
+        return response()->json($favouritePlaces);
     }
 
     /**
@@ -158,6 +160,8 @@ class MeController extends Controller
         $user = Auth::guard()->user();
         $user->favouritePlaces()->detach($id);
 
-        return response()->json($user->favouritePlaces);
+        $favouritePlaces = $user->favouritePlaces()->pluck('id')->toArray();
+
+        return response()->json($favouritePlaces);
     }
 }

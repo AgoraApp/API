@@ -43,6 +43,7 @@ $factory->define(App\Models\Place::class, function (Faker\Generator $faker) {
         'image' => $faker->imageUrl(500, 500, 'sports'),
         'latitude' => $location['latitude'],
         'longitude' => $location['longitude'],
+        'description' => $faker->text($maxNbChars = 500) 
     ];
 });
 

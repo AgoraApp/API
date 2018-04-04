@@ -29,7 +29,7 @@ class PlaceController extends Controller
      */
     public function get($id)
     {
-        $place = Place::with('zones')->find($id);
+        $place = Place::with('zones')->find($id)->makeVisible(['description']);
 
         return response()->json($place);
     }

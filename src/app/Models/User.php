@@ -108,6 +108,6 @@ class User extends Authenticatable implements JWTSubject
      */
     public function favouritePlaces()
     {
-        return $this->belongsToMany('App\Models\Place', 'user_place_favourites');
+        return $this->belongsToMany('App\Models\Place', 'user_place_favourites')->with('zones');
     }
 }

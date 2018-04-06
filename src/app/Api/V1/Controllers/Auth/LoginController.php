@@ -34,10 +34,13 @@ class LoginController extends Controller
             throw new HttpException(500);
         }
 
+        $user = Auth::guard()->user();
+        $user['favourite_places'] = $user->favouritePlaces()->pluck('id')->toArray();
+
         return response()
             ->json([
                 'token' => $token,
-                'user' => Auth::guard()->user()
+                'user' => $user
             ]);
     }
 }

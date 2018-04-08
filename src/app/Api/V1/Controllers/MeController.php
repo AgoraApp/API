@@ -76,8 +76,14 @@ class MeController extends Controller
         $user = Auth::guard()->user();
         $sessions = $user->sessions()
             ->withTrashed()
+            ->with('zone')
             ->get()
-            ->makeVisible(['deleted_at']);
+            ->makeVisible(['deleted_at'])
+            ->makeHidden(['place_id', 'zone_id']);
+
+        $sessions->each(function ($session) {
+            $session['place'] = $session->place()->first()->makeHidden(['image', 'country', 'latitude', 'longitude']);
+        });
 
         return response()->json($sessions);
     }

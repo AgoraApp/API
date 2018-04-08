@@ -74,7 +74,7 @@ class MeController extends Controller
     {
         $user = Auth::guard()->user();
         $sessions = $user->sessions()
-            ->onlyTrashed()
+            ->withTrashed()
             ->get()
             ->makeVisible(['deleted_at']);
 

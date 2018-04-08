@@ -36,6 +36,7 @@ class LoginController extends Controller
 
         $user = Auth::guard()->user();
         $user['favourite_places'] = $user->favouritePlaces()->pluck('id')->toArray();
+        $user['current_session'] = $user->CurrentSession;
 
         return response()
             ->json([

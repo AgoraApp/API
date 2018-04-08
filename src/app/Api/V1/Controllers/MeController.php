@@ -162,8 +162,9 @@ class MeController extends Controller
     public function getFavouritePlaces()
     {
         $user = Auth::guard()->user();
+        $favouritePlaces = $user->favouritePlaces()->with('zones')->get()->makeVisible(['description']);
 
-        return response()->json($user->favouritePlaces);
+        return response()->json($favouritePlaces);
     }
 
     /**

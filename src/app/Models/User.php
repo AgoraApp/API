@@ -6,6 +6,8 @@ use Hash;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Carbon\Carbon;
+use DateTime;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -77,6 +79,20 @@ class User extends Authenticatable implements JWTSubject
     public function getSkillsAttribute()
     {
         $this->load('skills');
+    }
+
+    /**
+     * Automatically creates hash for the user password.
+     *
+     * @param  string  $value
+     */
+    public function getCurrentSessionAttribute()
+    {
+        $currentDate = Carbon::now()->toDateTimeString();
+        return $this->sessions()
+            ->where('created_at', '<=', $currentDate)
+            ->where('end_at', '>=', $currentDate)
+            ->first();
     }
 
     /**

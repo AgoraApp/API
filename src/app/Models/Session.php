@@ -15,7 +15,7 @@ class Session extends Model
      * @var array
      */
     protected $fillable = [
-        'started_at', 'end_at', 'place_id', 'zone_id',
+        'end_at', 'place_id', 'zone_id',
     ];
 
     /**
@@ -24,7 +24,7 @@ class Session extends Model
      * @var array
      */
     protected $hidden = [
-        'created_at', 'updated_at', 'deleted_at'
+        'updated_at', 'deleted_at', 'guest_id', 'user_id'
     ];
 
     /**

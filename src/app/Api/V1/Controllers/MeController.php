@@ -7,10 +7,12 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use App\Api\V1\Requests\LoginRequest;
 use App\Models\Skill;
 use App\Models\Place;
+use App\Models\Session;
 use App\Models\UserPlaceFavourite;
 use Auth;
 
@@ -35,6 +37,7 @@ class MeController extends Controller
     {
         $user = Auth::guard()->user();
         $user['favourite_places'] = $user->favouritePlaces()->pluck('id')->toArray();
+        $user['currentSession'] = $user->CurrentSession;
 
         return response()->json($user);
     }
@@ -70,7 +73,10 @@ class MeController extends Controller
     public function getSessions()
     {
         $user = Auth::guard()->user();
-        $sessions = $user->sessions;
+        $sessions = $user->sessions()
+            ->onlyTrashed()
+            ->get()
+            ->makeVisible(['deleted_at']);
 
         return response()->json($sessions);
     }
@@ -82,14 +88,39 @@ class MeController extends Controller
      */
     public function createSession(Request $request)
     {
-        $data = $request->all();
-        $session = new Session($data);
+        $user = Auth::guard()->user();
+        $currentSession = $user->currentSession;
+        
+        if ($currentSession) {
+            return response()->json(['error' => 'There is already a running session'], 400);
+        }
+
+        $endDate = Carbon::now()->addSeconds($request->input('duration'))->toDateTimeString();
+
+        $session = new Session([
+            'end_at' => $endDate,
+            'place_id' => $request->input('place_id'),
+            'zone_id' => $request->input('zone_id')
+        ]);
         $session->save();
 
         $user = Auth::guard()->user();
         $user->sessions()->save($session);
 
         return response()->json($session);
+    }
+
+    /**
+     * Create session
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function destroySession($id)
+    {
+        $session = Session::find($id);
+        $session->delete();
+
+        return response()->json(['status' => 'ok', 'session' => $session]);
     }
 
     /**

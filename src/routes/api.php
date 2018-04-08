@@ -60,6 +60,7 @@ $api->version('v1', function (Router $api) {
             $api->get('/sessions', 'App\\Api\\V1\\Controllers\\MeController@getSessions');
             $api->post('/sessions', 'App\\Api\\V1\\Controllers\\MeController@createSession');
             $api->delete('/sessions/{id}', 'App\\Api\\V1\\Controllers\\MeController@destroySession');
+            $api->put('/sessions/{id}', 'App\\Api\\V1\\Controllers\\MeController@updateSession');
             $api->post('/skills/{name}', 'App\\Api\\V1\\Controllers\\MeController@addSkill');
             $api->delete('/skills/{id}', 'App\\Api\\V1\\Controllers\\MeController@removeSkill');
             $api->get('/places/favourite', 'App\\Api\\V1\\Controllers\\MeController@getFavouritePlaces');

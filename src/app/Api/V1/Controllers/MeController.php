@@ -13,6 +13,7 @@ use App\Api\V1\Requests\LoginRequest;
 use App\Models\Skill;
 use App\Models\Place;
 use App\Models\Session;
+use App\Models\Zone;
 use App\Models\UserPlaceFavourite;
 use Auth;
 
@@ -108,6 +109,30 @@ class MeController extends Controller
         $user->sessions()->save($session);
 
         return response()->json($session);
+    }
+
+    /**
+     * Update session
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function updateSession(Request $request, $id)
+    {
+        $user = Auth::guard()->user();
+        $session = Session::find($id);
+
+        if ($request->has('zone_id')) {
+            $zone = Zone::find($request->input('zone_id'));
+            $session->zone()->associate($zone);
+        }
+
+        if ($request->has('end_at')) {
+            $session->end_at = $request->input('end_at');
+        }
+
+        $session->save();
+
+        return response()->json($session->makeHidden('zone'));
     }
 
     /**

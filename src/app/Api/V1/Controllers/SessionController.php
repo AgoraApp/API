@@ -17,7 +17,13 @@ class SessionController extends Controller
      */
     public function findByPlace($placeId)
     {
-        $sessions = Session::with(['user', 'guest', 'zone'])->where('place_id', $placeId)->get();
+        $user = Auth::guard()->user();
+        $sessions = Session::with(['user', 'guest', 'zone'])
+                                ->where([
+                                    ['place_id', '=', $placeId],
+                                    ['user_id', '!=', $user->id],
+                                ])
+                                ->get();
 
         return response()->json($sessions);
     }

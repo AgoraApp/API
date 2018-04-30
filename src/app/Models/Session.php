@@ -15,7 +15,7 @@ class Session extends Model
      * @var array
      */
     protected $fillable = [
-        'end_at', 'place_id', 'zone_id',
+        'end_at', 'description', 'place_id', 'zone_id',
     ];
 
     /**

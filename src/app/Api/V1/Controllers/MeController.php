@@ -106,6 +106,7 @@ class MeController extends Controller
 
         $session = new Session([
             'end_at' => $endDate,
+            'description' => $request->input('description'),
             'place_id' => (int)$request->input('place_id'),
             'zone_id' => (int)$request->input('zone_id')
         ]);
